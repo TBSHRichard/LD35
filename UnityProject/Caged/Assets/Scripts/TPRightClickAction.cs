@@ -2,9 +2,10 @@
 
 public class TPRightClickAction : RightClickAction {
     public Transform tpLocation;
+    public Room tpRoom;
 
     public override void Action(Player player)
     {
-        player.transform.position = tpLocation.position;
+        player.Teleport(tpLocation.position, tpRoom);
     }
 }

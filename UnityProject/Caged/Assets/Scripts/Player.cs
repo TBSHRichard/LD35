@@ -5,19 +5,25 @@ using UnityEngine.Scripting;
 public class Player : MonoBehaviour {
     public Animator characterAnimator;
     public GameObject mouseHelper;
+    public SpriteRenderer characterSprite;
+    public Transform characterTransform;
     public RuntimeAnimatorController humanFormController,
         lionFormController,
         snakeFormController,
         crowFormControler;
+    public Room currentRoom;
 
+    private Transform _playerTransform;
     private Rigidbody2D _rigidbody;
     private RightClickAction _rightClickAction;
     private AnimalForm _form;
 
     void Start()
     {
+        _playerTransform = GetComponent<Transform>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _form = AnimalForm.Human;
+        currentRoom.EnterRoom(this);
     }
 
     /*
@@ -28,24 +34,49 @@ public class Player : MonoBehaviour {
         if (newForm != AnimalForm.Any && newForm != _form)
         {
             _form = newForm;
+            characterSprite.flipX = false;
+            characterTransform.localPosition = Vector3.zero;
 
             if (_form == AnimalForm.Human)
             {
                 characterAnimator.runtimeAnimatorController = humanFormController;
+                currentRoom.UnlockBlocks();
             }
             else if (_form == AnimalForm.Lion)
             {
                 characterAnimator.runtimeAnimatorController = lionFormController;
+                currentRoom.LockBlocks();
             }
             else if (_form == AnimalForm.Snake)
             {
                 characterAnimator.runtimeAnimatorController = snakeFormController;
+                currentRoom.LockBlocks();
             }
             else
             {
                 characterAnimator.runtimeAnimatorController = crowFormControler;
+                currentRoom.LockBlocks();
             }
         }
+    }
+
+    /*
+        The current form the Player is in.
+    */
+    public AnimalForm form
+    {
+        get { return _form; }
+    }
+
+    /*
+        Teleport the Player to a new Room.
+    */
+    public void Teleport(Vector3 location, Room room)
+    {
+        _playerTransform.position = location;
+        currentRoom.ExitRoom();
+        currentRoom = room;
+        currentRoom.EnterRoom(this);
     }
 
     /*

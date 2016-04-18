@@ -75,11 +75,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\Enum\AnimalForm.cs" />
     <Compile Include="Assets\Scripts\FormCoin.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Poof.cs" />
     <Compile Include="Assets\Scripts\RightClickAction.cs" />
+    <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\TPRightClickAction.cs" />
     <Compile Include="Assets\Scripts\TransformButton.cs" />
   </ItemGroup>
