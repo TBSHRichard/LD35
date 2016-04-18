@@ -84,6 +84,8 @@
     <Compile Include="Assets\Scripts\Room.cs" />
     <Compile Include="Assets\Scripts\TPRightClickAction.cs" />
     <Compile Include="Assets\Scripts\TransformButton.cs" />
+    <Compile Include="Assets\Scripts\Twig.cs" />
+    <Compile Include="Assets\Scripts\TwigRightClickAction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

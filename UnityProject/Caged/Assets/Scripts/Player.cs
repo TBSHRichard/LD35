@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
         snakeFormController,
         crowFormControler;
     public Room currentRoom;
+    public GameObject poof;
 
     private Transform _playerTransform;
     private Rigidbody2D _rigidbody;
@@ -36,6 +37,12 @@ public class Player : MonoBehaviour {
             _form = newForm;
             characterSprite.flipX = false;
             characterTransform.localPosition = Vector3.zero;
+            Instantiate(poof, transform.position, Quaternion.identity);
+
+            if (_rightClickAction != null)
+            {
+                _rightClickAction.UpdateHelper(this);
+            }
 
             if (_form == AnimalForm.Human)
             {
