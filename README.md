@@ -1,6 +1,6 @@
-Ludum Dare 48-Hour #35
+Ludum Dare 48-Hour #35 (Jam)
 
-April 15 9:00PM EST - 17 9:00PM EST, 2016
+April 15 9:00PM EST - 18 9:00PM EST, 2016
 
 Game Title: Caged
 
