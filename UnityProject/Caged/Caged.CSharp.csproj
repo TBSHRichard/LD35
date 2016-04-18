@@ -80,6 +80,8 @@
     <Compile Include="Assets\Scripts\Enum\AnimalForm.cs" />
     <Compile Include="Assets\Scripts\FormCoin.cs" />
     <Compile Include="Assets\Scripts\Key.cs" />
+    <Compile Include="Assets\Scripts\LeverObject.cs" />
+    <Compile Include="Assets\Scripts\LeverRightClickAction.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Poof.cs" />
     <Compile Include="Assets\Scripts\RightClickAction.cs" />
