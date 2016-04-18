@@ -1,16 +1,51 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Scripting;
 
 public class Player : MonoBehaviour {
     public Animator characterAnimator;
     public GameObject mouseHelper;
+    public RuntimeAnimatorController humanFormController,
+        lionFormController,
+        snakeFormController,
+        crowFormControler;
 
     private Rigidbody2D _rigidbody;
     private RightClickAction _rightClickAction;
+    private AnimalForm _form;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _form = AnimalForm.Human;
+    }
+
+    /*
+        Transform into the new form.
+    */
+    public void Shapeshift(AnimalForm newForm)
+    {
+        if (newForm != AnimalForm.Any && newForm != _form)
+        {
+            _form = newForm;
+
+            if (_form == AnimalForm.Human)
+            {
+                characterAnimator.runtimeAnimatorController = humanFormController;
+            }
+            else if (_form == AnimalForm.Lion)
+            {
+                characterAnimator.runtimeAnimatorController = lionFormController;
+            }
+            else if (_form == AnimalForm.Snake)
+            {
+                characterAnimator.runtimeAnimatorController = snakeFormController;
+            }
+            else
+            {
+                characterAnimator.runtimeAnimatorController = crowFormControler;
+            }
+        }
     }
 
     /*
