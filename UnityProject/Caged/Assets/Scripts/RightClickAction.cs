@@ -15,19 +15,18 @@ public abstract class RightClickAction : MonoBehaviour {
     */
     public void Action(Player player)
     {
-        if (RequiredForm() == AnimalForm.Any || RequiredForm() == player.form)
+        if (CanAct(player))
         {
             ActionCommand(player);
         }
     }
 
     /*
-        Returns the AnimalForm the Player needs to be in to activate this
-        action.
+        Returns whether or not the Player can act upon this action.
     */
-    public virtual AnimalForm RequiredForm()
+    public virtual bool CanAct(Player player)
     {
-        return AnimalForm.Any;
+        return true;
     }
 
     /*
@@ -35,7 +34,7 @@ public abstract class RightClickAction : MonoBehaviour {
     */
     public void UpdateHelper(Player player)
     {
-        if (RequiredForm() == AnimalForm.Any || RequiredForm() == player.form)
+        if (CanAct(player))
         {
             player.ShowHelper();
         }

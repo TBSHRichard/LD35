@@ -9,8 +9,8 @@ public class TwigRightClickAction : RightClickAction {
         twigAnimator.SetTrigger("Destroy");
     }
 
-    public override AnimalForm RequiredForm()
+    public override bool CanAct(Player player)
     {
-        return AnimalForm.Lion;
+        return player.form == AnimalForm.Lion;
     }
 }

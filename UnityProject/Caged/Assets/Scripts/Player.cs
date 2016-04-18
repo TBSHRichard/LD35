@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Scripting;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
     public Animator characterAnimator;
@@ -13,11 +13,14 @@ public class Player : MonoBehaviour {
         crowFormControler;
     public Room currentRoom;
     public GameObject poof;
+    public Text healthText,
+        keysText;
 
     private Transform _playerTransform;
     private Rigidbody2D _rigidbody;
     private RightClickAction _rightClickAction;
     private AnimalForm _form;
+    private int _numberOfKeys;
 
     void Start()
     {
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour {
         _rigidbody = GetComponent<Rigidbody2D>();
         _form = AnimalForm.Human;
         currentRoom.EnterRoom(this);
+        _numberOfKeys = 0;
     }
 
     /*
@@ -73,6 +77,41 @@ public class Player : MonoBehaviour {
     public AnimalForm form
     {
         get { return _form; }
+    }
+
+    /*
+        Set the key display in the HUD to let the Player know how many keys
+        he/she has.
+    */
+    private void UpdateKeyDisplay()
+    {
+        keysText.text = _numberOfKeys.ToString();
+    }
+
+    /*
+        Give a key to the Player.
+    */
+    public void GiveKey()
+    {
+        _numberOfKeys += 1;
+        UpdateKeyDisplay();
+    }
+
+    public void UseKey()
+    {
+        if (_numberOfKeys > 0)
+        {
+            _numberOfKeys -= 1;
+            UpdateKeyDisplay();
+        }
+    }
+
+    /*
+        The number of keys the Player has.
+    */
+    public int numberOfKeys
+    {
+        get { return _numberOfKeys; }
     }
 
     /*
