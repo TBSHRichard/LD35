@@ -3,6 +3,15 @@
 public class Room : MonoBehaviour {
     public Block[] blocks;
 
+    private int _id;
+    private static int _currentId;
+
+    void Start()
+    {
+        _id = _currentId;
+        _currentId++;
+    }
+
     /*
         The Player has entered the room, set up the Blocks.
     */
@@ -55,5 +64,15 @@ public class Room : MonoBehaviour {
                 block.LockBlock();
             }
         }
+    }
+
+    public int id
+    {
+        get { return _id; }
+    }
+
+    public bool Equals(Room other)
+    {
+        return _id == other.id;
     }
 }

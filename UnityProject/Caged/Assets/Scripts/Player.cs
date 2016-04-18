@@ -15,12 +15,15 @@ public class Player : MonoBehaviour {
     public GameObject poof;
     public Text healthText,
         keysText;
+    public RectTransform healthBarTransform;
 
     private Transform _playerTransform;
     private Rigidbody2D _rigidbody;
     private RightClickAction _rightClickAction;
     private AnimalForm _form;
-    private int _numberOfKeys;
+    private int _health,
+        _numberOfKeys;
+    private float _maxHealthBarWidth;
 
     void Start()
     {
@@ -28,7 +31,9 @@ public class Player : MonoBehaviour {
         _rigidbody = GetComponent<Rigidbody2D>();
         _form = AnimalForm.Human;
         currentRoom.EnterRoom(this);
+        _health = 10;
         _numberOfKeys = 0;
+        _maxHealthBarWidth = healthBarTransform.rect.width;
     }
 
     /*
@@ -80,6 +85,32 @@ public class Player : MonoBehaviour {
     }
 
     /*
+        Set the health display in the HUD to let the Player know how much health
+        he/she has left.
+    */
+    private void UpdateHealthDisplay()
+    {
+        healthText.text = _health.ToString();
+
+        healthBarTransform.sizeDelta = new Vector2((_health / 10f) * _maxHealthBarWidth, healthBarTransform.sizeDelta.y);
+    }
+
+    /*
+        Damage the Player by a certain amount. If health hits 0, the game is over!
+    */
+    public void TakeDamage(int damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0)
+        {
+            _health = 0;
+        }
+
+        UpdateHealthDisplay();
+    }
+
+    /*
         Set the key display in the HUD to let the Player know how many keys
         he/she has.
     */
@@ -120,9 +151,13 @@ public class Player : MonoBehaviour {
     public void Teleport(Vector3 location, Room room)
     {
         _playerTransform.position = location;
-        currentRoom.ExitRoom();
-        currentRoom = room;
-        currentRoom.EnterRoom(this);
+
+        if (!currentRoom.Equals(room))
+        {
+            currentRoom.ExitRoom();
+            currentRoom = room;
+            currentRoom.EnterRoom(this);
+        }
     }
 
     /*
