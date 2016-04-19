@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
     public Animator characterAnimator;
@@ -16,6 +17,11 @@ public class Player : MonoBehaviour {
     public Text healthText,
         keysText;
     public RectTransform healthBarTransform;
+    public AudioSource walkSound;
+    public AudioClip humanSteps,
+        lionSteps,
+        snakeSteps,
+        crowSteps;
 
     private Transform _playerTransform;
     private Rigidbody2D _rigidbody;
@@ -56,21 +62,25 @@ public class Player : MonoBehaviour {
             if (_form == AnimalForm.Human)
             {
                 characterAnimator.runtimeAnimatorController = humanFormController;
+                walkSound.clip = humanSteps;
                 currentRoom.UnlockBlocks();
             }
             else if (_form == AnimalForm.Lion)
             {
                 characterAnimator.runtimeAnimatorController = lionFormController;
+                walkSound.clip = lionSteps;
                 currentRoom.LockBlocks();
             }
             else if (_form == AnimalForm.Snake)
             {
                 characterAnimator.runtimeAnimatorController = snakeFormController;
+                walkSound.clip = snakeSteps;
                 currentRoom.LockBlocks();
             }
             else
             {
                 characterAnimator.runtimeAnimatorController = crowFormControler;
+                walkSound.clip = crowSteps;
                 currentRoom.LockBlocks();
             }
         }
@@ -108,6 +118,11 @@ public class Player : MonoBehaviour {
         }
 
         UpdateHealthDisplay();
+
+        if (_health == 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
     }
 
     /*
@@ -255,9 +270,22 @@ public class Player : MonoBehaviour {
         }
 
         Vector2 velocity = new Vector2(xVel, yVel);
+        float speed = velocity.sqrMagnitude;
+
+        if (speed > 0)
+        {
+            if (!walkSound.isPlaying)
+            {
+                walkSound.Play();
+            }
+        }
+        else
+        {
+            walkSound.Stop();
+        }
 
         _rigidbody.velocity = velocity;
-        characterAnimator.SetFloat("MoveSpeed", _rigidbody.velocity.sqrMagnitude);
+        characterAnimator.SetFloat("MoveSpeed", speed);
     }
 
 	void Update () {

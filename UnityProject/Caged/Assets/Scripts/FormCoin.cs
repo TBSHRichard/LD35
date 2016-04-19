@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class FormCoin : MonoBehaviour {
     public TransformButton buttonToUnlock;
-    public GameObject poof;
+    public GameObject poof,
+        collectSound;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,6 +12,7 @@ public class FormCoin : MonoBehaviour {
         {
             buttonToUnlock.Unlock();
             Instantiate(poof, transform.position, Quaternion.identity);
+            Instantiate(collectSound, transform.position, Quaternion.identity);
 
             Destroy(gameObject);
         }

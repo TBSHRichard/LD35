@@ -2,6 +2,7 @@
 
 public class Fallable : MonoBehaviour {
     public Collider2D objectCollider;
+    public AudioSource fallSound;
 
     private Transform _objectTransform,
         _pitTransform;
@@ -24,6 +25,8 @@ public class Fallable : MonoBehaviour {
 
     public virtual void StartFall(int floor, Pit pit)
     {
+        fallSound.Play();
+
         objectCollider.enabled = false;
         _fallTimer = MAX_TIME;
         _startPosition = _objectTransform.position;

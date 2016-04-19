@@ -3,6 +3,7 @@
 public class LeverRightClickAction : RightClickAction {
     public LeverObject[] connectedObjects;
     public Animator leverAnimator;
+    public AudioSource leverToggle;
 
     private bool _isOn;
 
@@ -10,6 +11,7 @@ public class LeverRightClickAction : RightClickAction {
     {
         _isOn = !_isOn;
         leverAnimator.SetBool("IsOn", _isOn);
+        leverToggle.Play();
 
         foreach (LeverObject leverObject in connectedObjects)
         {

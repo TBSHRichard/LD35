@@ -3,7 +3,8 @@ using System.Collections;
 
 public class Key : MonoBehaviour
 {
-    public GameObject poof;
+    public GameObject poof,
+        collectSound;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,6 +12,7 @@ public class Key : MonoBehaviour
         {
             other.GetComponent<Player>().GiveKey();
             Instantiate(poof, transform.position, Quaternion.identity);
+            Instantiate(collectSound, transform.position, Quaternion.identity);
 
             Destroy(gameObject);
         }
